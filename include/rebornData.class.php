@@ -70,4 +70,12 @@
             }
             return $stories;
         }
+        public function getNext($order_id, $date){
+            $next = $this->db->story()->where('order_id < ? AND date = ?',
+                $order_id, $date)->order('order_id DESC')->limit(1);
+            if(count($next) < 1){
+                return false;
+            }
+            return $next->fetch();
+        }
     }

@@ -21,7 +21,7 @@
 	</div>
 	<?php if($next):?>
 	<div class="pager">
-		<a href="?c=content&amp;id=<?php echo $next;?>#content" target="_self">下一篇</a>
+		<a href="?c=content&amp;id=<?php echo $next['id'];?>#content" target="_self">下一篇：<?php echo nl2br(htmlspecialchars($next['title']));?></a>
 	</div>
 	<?php endif;?>
 	<div class="pager">

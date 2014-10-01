@@ -8,9 +8,8 @@
 </head>
 <body>
 
-<?php var_dump($data);?>
-	<h1><?php echo $data['display_date'];?></h1>
-	<?php foreach($data['news'] as $datum):?>
+	<h1>知乎日报 <?php echo $date;?></h1>
+	<?php foreach($news as $datum):?>
 		<div class="entry" id="entry<?php echo $datum['id'];?>">
 			<p class="title">
 				<img class="title_img" src="img.php?url=<?php echo $datum['image'];?>"/>

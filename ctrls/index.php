@@ -9,4 +9,7 @@
         die('no such a date');
     }
     $data = reborn::data()->getByDate($date);
-    reborn::render('index', array('data'=>$data));
+    reborn::render('index', array(
+        'news' => $data,
+        'date' => $date
+    ));

@@ -9,7 +9,11 @@
         die('no such a date');
     }
     $data = reborn::data()->getByDate($date);
-    reborn::render('index', array(
+    $view = 'index';
+    if($_GET['v'] = 'rss'){
+        $view = 'rss';
+    }
+    reborn::render($view, array(
         'news' => $data,
         'date' => $date,
         'is_today' => $date == date('Ymd')

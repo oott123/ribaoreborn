@@ -22,4 +22,11 @@
             extract($extract_data);
             include self::$base_dir. 'views/'. $view. '.php';
         }
+        static function boot($controller){
+            //路由到控制器
+            if(!preg_match('/[0-9a-z_-]/', $controller)){
+                die('illegal controller');
+            }
+            include self::$base_dir. 'ctrls/'. $controller. '.php';
+        }
     }

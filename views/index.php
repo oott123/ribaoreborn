@@ -9,11 +9,17 @@
 <body>
 
 	<h1>知乎日报 <?php echo $date;?></h1>
-	<?php foreach($news as $datum):?>
+	<?php foreach($news as $key => $datum):?>
+<?php
+    $next = false;
+    if(isset($news[$key+1])){
+        $next = '&amp;next='. $news[$key+1]['id'];
+    }
+?>
 		<div class="entry" id="entry<?php echo $datum['id'];?>">
 			<p class="title">
 				<img class="title_img" src="img.php?url=<?php echo $datum['image'];?>"/>
-				<a class="title_text" href="content.php?id=<?php echo $datum['id'];?>&amp;before=<?php echo $_GET['before']+0;?>#content"><?php echo nl2br(htmlspecialchars($datum['title']));?></a>
+				<a class="title_text" href="content.php?id=<?php echo $datum['id'];?><?php echo $next;?>#content"><?php echo nl2br(htmlspecialchars($datum['title']));?></a>
 			</p>
 		</div>
 	<?php endforeach;?>

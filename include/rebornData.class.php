@@ -9,12 +9,22 @@
         public function __construct(){
             $pdo = null;
             //兼容sae配置
-            $pdo = new PDO('mysql:host='. SAE_MYSQL_HOST_M. ';port='.  SAE_MYSQL_PORT. ';dbname='. SAE_MYSQL_DB, SAE_MYSQL_USER,  SAE_MYSQL_PASS);
+            $pdo = new PDO('mysql:host='. SAE_MYSQL_HOST_M. ';port='.  SAE_MYSQL_PORT. ';dbname='. SAE_MYSQL_DB. ';charset=utf8', SAE_MYSQL_USER,  SAE_MYSQL_PASS);
+            $pdo->query('set names utf8;');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->db = new NotORM($pdo);
             $this->api = new rebornApi();
         }
         private function saveStory($data){
+            $data = array(
+                'id' => $data['id'],
+                'date' => $data['date'],
+                'title' => $data['title'],
+                'body' => $data['body'],
+                'image' => $data['image'],
+                'thumbnail' => $data['thumbnail'],
+                'url' => $data['share_url']
+            );
             try{
                 $this->db->story()->insert($data);
             }catch (PDOException $e){
@@ -30,11 +40,11 @@
                 return false;
             }
         }
-        public function newStory($story, $date){
-            $story = $this->getStory($story['id']);
+        public function newStory($storyEntry, $date){
+            $story = $this->getStory($storyEntry['id']);
             if(!$story){
                 //获取、保存故事
-                $story = $this->api->getStory($story['url']);
+                $story = $this->api->getStory($storyEntry['url']);
                 $story['date'] = $date;
                 $this->saveStory($story);
             }
@@ -49,7 +59,9 @@
                 $this->db->story()->where('date = ?', $date);
             }
             if(!$stories || $force_refresh){
-                $stories = $this->api->getByDate($date);
+                $data = $this->api->getByDate($date);
+                $stories = $data['news'];
+                $date = $data['date'];
                 foreach($stories as $story){
                     $this->newStory($story, $date);
                 }

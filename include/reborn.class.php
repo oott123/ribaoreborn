@@ -45,6 +45,6 @@
             $time = self::dateToTime($date);
             $day = explode(',', ',一,二,三,四,五,六,日');
             $day = $day[date('N', $time)];
-            return date('Y.n.j 星期').$day;
+            return date('Y.n.j 星期', $time).$day;
         }
     }

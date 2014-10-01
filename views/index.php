@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<h1>知乎日报 <?php echo $date;?></h1>
+	<h1><?php echo reborn::genTitle($date);?></h1>
 	<?php foreach($news as $datum):?>
 		<div class="entry" id="entry<?php echo $datum['id'];?>">
 			<p class="title">

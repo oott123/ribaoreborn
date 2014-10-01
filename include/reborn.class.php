@@ -33,4 +33,18 @@
             }
             include self::$base_dir. 'ctrls/'. $controller. '.php';
         }
+        static function dateToTime($date){
+            $year = substr($date, 0, 4);
+            $month = substr($date, 4, 2);
+            $day2 = substr($date, 6);
+            $now = "{$year}-{$month}-{$day2} 08:00:00";
+            $now = strtotime($now);
+            return $now;
+        }
+        static function genTitle($date){
+            $time = self::dateToTime($date);
+            $day = explode(',', ',一,二,三,四,五,六,日');
+            $day = $day[date('N', $time)];
+            return date('Y.n.j 星期').$day;
+        }
     }

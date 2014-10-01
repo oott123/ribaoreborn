@@ -1,3 +1,4 @@
 <?php
     require 'include/bootstrap.inc.php';
-    reborn::boot($_GET['c']);
+    $controller = isset($_GET['c']) ? $_GET['c'] : 'index';
+    reborn::boot($controller);

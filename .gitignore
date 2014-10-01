@@ -1,2 +1,3 @@
 /.idea
 /cache/*.php
+/config.yaml

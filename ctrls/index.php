@@ -10,7 +10,7 @@
     }
     $data = reborn::data()->getByDate($date);
     $view = 'index';
-    if($_GET['v'] = 'rss'){
+    if($_GET['v'] == 'rss'){
         $view = 'rss';
     }
     reborn::render($view, array(

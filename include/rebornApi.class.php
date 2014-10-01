@@ -14,7 +14,9 @@
             $before = $this->get_next_day($date, 1);
             $url = sprintf(self::BEFORE_API, $before);
             $json = $this->curl->get($url);
-            return json_decode($json, 1);
+            $data = json_decode($json, 1);
+            $data['news'] = array_reverse($data['news']);
+            return $data;
         }
         public function getStory($url){
             return json_decode($this->curl->get($url), 1);

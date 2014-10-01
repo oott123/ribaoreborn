@@ -26,7 +26,7 @@
 	<?php endif;?>
 	<div class="pager">
 		<a href="?date=<?php echo $content['date'];?>#entry<?php echo $content["id"];?>" target="_self">列表</a>
-		<a href="<?php echo $content['share_url'];?>">分享页</a>
+		<a href="<?php echo $content['url'];?>">分享页</a>
 	</div>
 </body>
 </html>

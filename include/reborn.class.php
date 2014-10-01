@@ -15,10 +15,14 @@
             self::$data = new rebornData();
             self::$base_dir = dirname(__FILE__). '/../';
         }
+
+        /**
+         * @return rebornData
+         */
         static function data(){
             return self::$data;
         }
-        static function render($view, $extract_data){
+        static function render($view, $extract_data = array()){
             extract($extract_data);
             include self::$base_dir. 'views/'. $view. '.php';
         }

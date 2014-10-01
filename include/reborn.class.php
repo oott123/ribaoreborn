@@ -1,7 +1,7 @@
 <?php
     class reborn{
         static private $data;
-        static private $base_dir;
+        static public $base_dir;
         static function init(){
             if(!defined('SAE_MYSQL_USER')){
                 //不是SAE环境

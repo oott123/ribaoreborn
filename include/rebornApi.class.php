@@ -19,7 +19,7 @@
         public function getStory($url){
             return json_decode($this->curl->get($url), 1);
         }
-        public function get_next_day($day, $howmany = 1){
+        public static function get_next_day($day, $howmany = 1){
             //20130731
             $year = substr($day, 0, 4);
             $month = substr($day, 4, 2);

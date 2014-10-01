@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>知乎日报网页阅读</title>
-	<link rel="stylesheet" href="general.css" />
+	<link rel="stylesheet" href="static/general.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
@@ -18,13 +18,13 @@
 		</div>
 	<?php endforeach;?>
 	<div class="pager">
-	<?php if($data['date']>=$today):?>
+	<?php if($is_today):?>
 		这是今天的最新消息&nbsp;
 	<?php else:?>
 		<a href="?">回到今天</a>
-		<a href="?before=<?php echo get_next_day($_GET['before']);?>">查看后一天</a>
+		<a href="?date=<?php echo rebornApi::get_next_day($date);?>">查看后一天</a>
 	<?php endif;?>
-		<a href="?before=<?php echo get_next_day($_GET['before'],-1);?>">查看前一天</a>
+		<a href="?date=<?php echo rebornApi::get_next_day($date,-1);?>">查看前一天</a>
 	</div>
 </body>
 </html>

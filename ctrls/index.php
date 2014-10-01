@@ -11,5 +11,6 @@
     $data = reborn::data()->getByDate($date);
     reborn::render('index', array(
         'news' => $data,
-        'date' => $date
+        'date' => $date,
+        'is_today' => $date == date('Ymd')
     ));

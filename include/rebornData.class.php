@@ -59,7 +59,7 @@
                 $stories = $this->db->story()->where('date = ?', $date)
                     ->order('order_id DESC');
             }
-            if(!$stories || $force_refresh){
+            if(count($stories) < 1 || $force_refresh){
                 $data = $this->api->getByDate($date);
                 $stories = $data['news'];
                 $date = $data['date'];

@@ -5,4 +5,6 @@
         die('no such a id');
     }
     $content = reborn::data()->getStory($id);
-    reborn::render('content');
+    reborn::render('content', array(
+        'content' => $content,
+    ));

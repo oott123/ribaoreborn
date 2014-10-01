@@ -56,7 +56,8 @@
             }
             $stories = null;
             if(!$force_refresh){
-                $this->db->story()->where('date = ?', $date);
+                $stories = $this->db->story()->where('date = ?', $date)
+                    ->order('order_id DESC');
             }
             if(!$stories || $force_refresh){
                 $data = $this->api->getByDate($date);
@@ -65,6 +66,7 @@
                 foreach($stories as $story){
                     $this->newStory($story, $date);
                 }
+                return array_reverse($stories);
             }
             return $stories;
         }

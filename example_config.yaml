@@ -4,7 +4,7 @@ handle:
   - compress: if ( out_header["Content-type"] ~ "image/jpeg" ) compress
   - expire:  if( path ~ "img.php" ) time 3600000
   - passwdaccess: if(path ~ "secret") passwd "crontab:8zolw7YyoSzKQQttlKkqpEP"
-corn:
+cron:
   - description: update_ribao
     url: /secret/cron.php
     schedule: every 15 mins

@@ -128,7 +128,7 @@
                 );
             }else{
                 $order = '('. $this->getOrdStr('title', 3, $keyword). '+'.
-                    $this->getOrdStr('body', 2, $keyword). ')'
+                    $this->getOrdStr('body', 1, $keyword). ')'
                     .' DESC, date DESC';
                 return array(
                     $this->db->story()->where($like)->order($order)

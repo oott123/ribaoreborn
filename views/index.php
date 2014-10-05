@@ -8,14 +8,9 @@
 </head>
 <body>
 	<h1><?php echo reborn::genTitle($date);?></h1>
-	<?php foreach($news as $datum):?>
-		<div class="entry" id="entry<?php echo $datum['id'];?>">
-			<p class="title">
-				<img class="title_img" src="img.php?url=<?php echo $datum['image'];?>"/>
-				<a class="title_text" href="?c=content&amp;id=<?php echo $datum['id'];?>#content"><?php echo nl2br(htmlspecialchars($datum['title']));?></a>
-			</p>
-		</div>
-	<?php endforeach;?>
+	<?php foreach($news as $datum):
+        reborn::render('display_item', array('datum' => $datum));
+    endforeach;?>
 	<div class="pager">
 	<?php if($is_today):?>
 		这是今天的最新消息&nbsp;

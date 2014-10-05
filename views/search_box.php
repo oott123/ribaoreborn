@@ -1,5 +1,6 @@
-<form action="?c=search" method="POST">
+<form method="GET">
 <div class="search">
+    <input type="hidden" name="c" value="search"/>
     <div class="first row">
         <input type="text" name="keyword" placeholder="输入关键词 空格分开"
                value="<?php echo isset($keyword)?$keyword:'';?>"/>

@@ -9,10 +9,10 @@
     </div>
     <div class="second row">
         <input type="radio" name="rank" value="0" id="by_date"
-            <?php if(!isset($rank) || !$rank) echo 'selected';?>/>
+            <?php if(!isset($rank) || !$rank) echo 'checked';?>/>
         <label for="by_date">按日期排序</label>
         <input type="radio" name="rank" value="1" id="by_ass"
-            <?php if(isset($rank) && $rank) echo 'selected';?>/>
+            <?php if(isset($rank) && $rank) echo 'checked';?>/>
         <label for="by_ass">按相关度排序（慢）</label>
     </div>
 </div>

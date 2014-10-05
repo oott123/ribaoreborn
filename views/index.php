@@ -13,10 +13,6 @@
 	<?php endif;?>
 		<a href="?date=<?php echo rebornApi::get_next_day($date,-1);?>">查看前一天</a>
 	</div>
-    <div class="search">
-        <input type="text" name="keyword" placeholder="站内检索" />
-        <input type="submit" name="search_title" value="标题检索"/>
-        <input type="submit" name="search_body" value="全文检索" />
-    </div>
+<?php reborn::render('search_box');?>
 </body>
 </html>

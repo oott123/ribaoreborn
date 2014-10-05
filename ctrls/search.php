@@ -1,7 +1,7 @@
 <?php
     if(!class_exists('reborn')) die('Access is not allowed here');
     //检查关键词
-    if(!isset($_GET['keyword'])){
+    if(!isset($_GET['keyword']) || !$_GET['keyword']){
         die('<script>alert("搜索关键词不能为空~");history.go(-1);</script>');
     }
     //检查搜索排序
@@ -18,7 +18,7 @@
     $page = isset($_GET['page'])?intval($_GET['page']):1;
     //调取搜索结果
     $data = reborn::data()->$method($_GET['keyword'], $rank,
-        ($page-1)*20);
+        ($page-1)*20, rebornConfig::search_page_count);
     //为模版准备的上下页链接
     function getPageLink($to){
         $vars = $_GET;
@@ -33,7 +33,7 @@
         $keyword = array_map('preg_quote', $keyword);
         $keyword = implode('|', $keyword);
         return preg_replace(
-            "/{$keyword}/",
+            "/{$keyword}/i",
             '<span class="highlight">\0</span>',
             $title
         );
@@ -41,5 +41,6 @@
     reborn::render('search', array(
         'keyword' => $_GET['keyword'],
         'rank' => $rank,
-        'data' => $data
+        'data' => $data[0],
+        'count' => $data[1]
     ));

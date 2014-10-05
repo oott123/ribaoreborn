@@ -6,4 +6,5 @@
         const db_port = '3306';
         const db_name = 'ribao_reborn';
         const cache_dir = 'cache';
+        const search_page_count = 20;
     }

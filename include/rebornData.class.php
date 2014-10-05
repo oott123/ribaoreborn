@@ -100,13 +100,19 @@
             $keyword = $this->getKeyword($keyword);
             $like = $this->getLikeStr('title', $keyword);
             if($orderByScore){
-                return $this->db->story()->where($like)->order("date DESC")
-                    ->limit($limit, $offset);
+                return array(
+                    $this->db->story()->where($like)->order("date DESC")
+                        ->limit($limit, $offset),
+                    count($this->db->story()->where($like))
+                );
             }else{
                 $order = $this->getOrdStr('title', 1, $keyword).
                     ' DESC, date DESC';
-                return $this->db->story()->where($like)->order($order)
-                    ->limit($limit, $offset);
+                return array(
+                    $this->db->story()->where($like)->order($order)
+                        ->limit($limit, $offset),
+                    count($this->db->story()->where($like))
+                );
             }
         }
         public function searchByContent($keyword, $orderByScore = false,
@@ -115,14 +121,20 @@
             $like = $this->getLikeStr('title', $keyword). ' OR '.
                 $this->getLikeStr('body', $keyword);
             if($orderByScore){
-                return $this->db->story()->where($like)->order("date DESC")
-                    ->limit($limit, $offset);
+                return array(
+                    $this->db->story()->where($like)->order("date DESC")
+                        ->limit($limit, $offset),
+                    count($this->db->story()->where($like))
+                );
             }else{
                 $order = '('. $this->getOrdStr('title', 3, $keyword). '+'.
                     $this->getOrdStr('body', 2, $keyword). ')'
                     .' DESC, date DESC';
-                return $this->db->story()->where($like)->order($order)
-                    ->limit($limit, $offset);
+                return array(
+                    $this->db->story()->where($like)->order($order)
+                        ->limit($limit, $offset),
+                    count($this->db->story()->where($like))
+                );
             }
         }
         public static function addPercent($keywords){

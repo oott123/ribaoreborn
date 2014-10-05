@@ -1,3 +1,4 @@
+<form action="?c=search" method="POST">
 <div class="search">
     <div class="first row">
         <input type="text" name="keyword" placeholder="输入关键词 空格分开"
@@ -14,3 +15,4 @@
         <label for="by_ass">按相关度排序（慢）</label>
     </div>
 </div>
+</form>

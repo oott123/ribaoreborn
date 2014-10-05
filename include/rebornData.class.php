@@ -92,7 +92,7 @@
         }
         private function getOrdStr($column, $rank, $keyword){
             $order = implode(" THEN {$rank} ELSE 0 END) + (CASE WHEN `{$column}` LIKE ", $keyword);
-            $order = "((CASE WHEN `{$column}`` LIKE ". $order. " THEN {$rank} ELSE 0 END))";
+            $order = "((CASE WHEN `{$column}` LIKE ". $order. " THEN {$rank} ELSE 0 END))";
             return $order;
         }
         public function searchByTitle($keyword, $orderByScore = false,
@@ -104,7 +104,7 @@
                     ->limit($limit, $offset);
             }else{
                 $order = $this->getOrdStr('title', 1, $keyword).
-                    'DESC, date DESC';
+                    ' DESC, date DESC';
                 return $this->db->story()->where($like)->order($order)
                     ->limit($limit, $offset);
             }
@@ -120,7 +120,7 @@
             }else{
                 $order = '('. $this->getOrdStr('title', 3, $keyword). '+'.
                     $this->getOrdStr('body', 2, $keyword). ')'
-                    .'DESC, date DESC';
+                    .' DESC, date DESC';
                 return $this->db->story()->where($like)->order($order)
                     ->limit($limit, $offset);
             }

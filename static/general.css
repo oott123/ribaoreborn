@@ -36,7 +36,9 @@ a:hover{
   border: 1px solid #333;
   color: #666;
 }
-
+.highlight{
+  color: #fff;
+}
 @media all and (min-width:640px){
 	body{
 		font-family: "微软雅黑","Microsoft Yahei";

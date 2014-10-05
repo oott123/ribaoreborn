@@ -2,6 +2,7 @@
 <body>
 	<h1><?php echo reborn::genTitle($date);?></h1>
 	<?php foreach($news as $datum):
+
         reborn::render('display_item', array('datum' => $datum));
     endforeach;?>
 	<div class="pager">

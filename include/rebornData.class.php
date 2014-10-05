@@ -95,13 +95,19 @@
             $order = "((CASE WHEN `{$column}`` LIKE ". $order. " THEN {$rank} ELSE 0 END))";
             return $order;
         }
-        public function searchByTitle($keyword, $offset = 0, $limit = 20){
+        public function searchByTitle($keyword, $orderByScore = false,
+                                      $offset = 0, $limit = 20){
             $keyword = $this->getKeyword($keyword);
             $like = $this->getLikeStr('title', $keyword);
-            $order = $this->getOrdStr('title', 1, $keyword).'DESC, date DESC';
-            $res = $this->db->story()->where($like)->order($order)
-                ->limit($limit, $offset);
-            return $res;
+            if($orderByScore){
+                return $this->db->story()->where($like)->order("date DESC")
+                    ->limit($limit, $offset);
+            }else{
+                $order = $this->getOrdStr('title', 1, $keyword).
+                    'DESC, date DESC';
+                return $this->db->story()->where($like)->order($order)
+                    ->limit($limit, $offset);
+            }
         }
         public function searchByContent($keyword, $orderByScore = false,
                                         $offset = 0, $limit = 20){

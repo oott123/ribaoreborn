@@ -1,12 +1,7 @@
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title><?php echo htmlspecialchars($content['title']);?></title>
-	<link rel="stylesheet" href="static/general.css" />
-	<base target="_blank" />
-</head>
+<?php reborn::render('view_header', array(
+    'title'=>$content['title'],
+    'addition'=>'<base target="_blank" />'
+));?>
 <body class="night">
 	<div class="headimg" style="background-image:url('img.php?url=<?php echo $content["image"];?>');">
 		<div id="content"></div>

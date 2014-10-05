@@ -27,6 +27,12 @@ a:hover{
 .pager{
 	margin-top: 10px;
 }
+.pager select{
+    font-size: 20pt;
+    background: #000;
+    color: #ccc;
+    border: 1px solid #333;
+}
 .search{
 	margin: 10px;
   text-align: center;

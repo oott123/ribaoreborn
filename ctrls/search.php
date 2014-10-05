@@ -24,6 +24,9 @@
         $vars = $_GET;
         $page = isset($_GET['page'])?intval($_GET['page']):1;
         $vars['page'] = $page + $to;
+        if($to == NULL){
+            $vars['page'] = 'reborn_replace_it';
+        }
         return http_build_query($vars);
     }
     //为模版准备的生成高亮

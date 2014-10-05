@@ -6,18 +6,32 @@
     reborn::render('display_item', array('datum' => $datum));
 endforeach;?>
 <div class="pager">
-    <span class="count">
-        共 <?php echo $count;?> 篇
-    </span>
 <?php
     $page = isset($_GET['page'])?intval($_GET['page']):1;
     $maxpage = ceil($count / rebornConfig::search_page_count);
 ?>
 <?php if($page > 1):?>
     <a href="?<?php echo getPageLink(-1);?>">上一页</a>
-<?php endif;if($page < $maxpage):?>
+<?php endif;?>
+    <span class="count">
+        共 <?php echo $count;?> 篇
+    </span>
+    <select onchange="goPage()" id="pagerSelect">
+        <?php for($i = 1; $i <= $maxpage; $i++):?>
+            <option value="<?php echo $i;?>"
+                <?php if($page == $i)echo 'selected'?>><?php echo $i;?></option>
+        <?php endfor;?>
+    </select>
+<?if($page < $maxpage):?>
     <a href="?<?php echo getPageLink(1);?>">下一页</a>
 <?php endif;?>
+    <script>
+        function goPage(){
+            var url = '?<?php echo getPageLink(NULL);?>';
+            var page = document.getElementById('pagerSelect').value;
+            window.location = url.replace('reborn_replace_it', page);
+        }
+    </script>
 </div>
 </body>
 </html>

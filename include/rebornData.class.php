@@ -109,7 +109,8 @@
             $like = $this->getLikeStr('title', $keyword). ' OR '.
                 $this->getLikeStr('body', $keyword);
             if($orderByScore){
-                return $this->db->story()->where($like)->limit($limit, $offset);
+                return $this->db->story()->where($like)->order("date DESC")
+                    ->limit($limit, $offset);
             }else{
                 $order = '('. $this->getOrdStr('title', 3, $keyword). '+'.
                     $this->getOrdStr('body', 2, $keyword). ')'

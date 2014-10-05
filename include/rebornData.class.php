@@ -97,8 +97,8 @@
         }
         public function searchByTitle($keyword, $offset = 0, $limit = 20){
             $keyword = $this->getKeyword($keyword);
-            $order = $this->getOrdStr('title', 1, $keyword);
             $like = $this->getLikeStr('title', $keyword);
+            $order = $this->getOrdStr('title', 1, $keyword).'DESC, date DESC';
             $res = $this->db->story()->where($like)->order($order)
                 ->limit($limit, $offset);
             return $res;
@@ -106,6 +106,17 @@
         public function searchByContent($keyword, $orderByScore = false,
                                         $offset = 0, $limit = 20){
             $keyword = $this->getKeyword($keyword);
+            $like = $this->getLikeStr('title', $keyword). ' OR '.
+                $this->getLikeStr('body', $keyword);
+            if($orderByScore){
+                return $this->db->story()->where($like)->limit($limit, $offset);
+            }else{
+                $order = '('. $this->getOrdStr('title', 3, $keyword). '+'.
+                    $this->getOrdStr('body', 2, $keyword). ')'
+                    .'DESC, date DESC';
+                return $this->db->story()->where($like)->order($order)
+                    ->limit($limit, $offset);
+            }
         }
         public static function addPercent($keywords){
             return '%'.$keywords.'%';

@@ -6,13 +6,13 @@
     class rebornData{
         private $db;
         private $api;
+        private $pdo;
         public function __construct(){
-            $pdo = null;
             //兼容sae配置
-            $pdo = new PDO('mysql:host='. SAE_MYSQL_HOST_M. ';port='.  SAE_MYSQL_PORT. ';dbname='. SAE_MYSQL_DB. ';charset=utf8', SAE_MYSQL_USER,  SAE_MYSQL_PASS);
-            $pdo->query('set names utf8;');
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->db = new NotORM($pdo);
+            $this->pdo = new PDO('mysql:host='. SAE_MYSQL_HOST_M. ';port='.  SAE_MYSQL_PORT. ';dbname='. SAE_MYSQL_DB. ';charset=utf8', SAE_MYSQL_USER,  SAE_MYSQL_PASS);
+            $this->pdo->query('set names utf8;');
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->db = new NotORM($this->pdo);
             $this->api = new rebornApi();
         }
         private function saveStory($data){
@@ -77,5 +77,37 @@
                 return false;
             }
             return $next->fetch();
+        }
+
+        private function getKeyword($keyword){
+            $keyword = explode(' ', $keyword);
+            $keyword = array_map(array(__CLASS__, 'addPercent'), $keyword);
+            $keyword = array_map(array($this->pdo, 'quote'), $keyword);
+            return $keyword;
+        }
+        private function getLikeStr($column, $keyword){
+            $like = implode(" OR `{$column}` LIKE ", $keyword);
+            $like = "`{$column}` LIKE ".$like."";
+            return $like;
+        }
+        private function getOrdStr($column, $rank, $keyword){
+            $order = implode(" THEN {$rank} ELSE 0 END) + (CASE WHEN `{$column}` LIKE ", $keyword);
+            $order = "((CASE WHEN `{$column}`` LIKE ". $order. " THEN {$rank} ELSE 0 END))";
+            return $order;
+        }
+        public function searchByTitle($keyword, $offset = 0, $limit = 20){
+            $keyword = $this->getKeyword($keyword);
+            $order = $this->getOrdStr('title', 1, $keyword);
+            $like = $this->getLikeStr('title', $keyword);
+            $res = $this->db->story()->where($like)->order($order)
+                ->limit($limit, $offset);
+            return $res;
+        }
+        public function searchByContent($keyword, $orderByScore = false,
+                                        $offset = 0, $limit = 20){
+            $keyword = $this->getKeyword($keyword);
+        }
+        public static function addPercent($keywords){
+            return '%'.$keywords.'%';
         }
     }

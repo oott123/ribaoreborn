@@ -8,10 +8,13 @@
     if($date > 20220101 || $date < 20080101){
         die('no such a date');
     }
-    $data = reborn::data()->getByDate($date);
     $view = 'index';
+    $data = null;
     if(isset($_GET['v']) && $_GET['v'] == 'rss'){
         $view = 'rss';
+        $data = reborn::data()->getRecent(10);
+    }else{
+        $data = reborn::data()->getByDate($date);
     }
     reborn::render($view, array(
         'news' => $data,
